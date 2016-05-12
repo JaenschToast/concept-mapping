@@ -1,0 +1,21 @@
+a.two:link,a.two:visited
+{display:block;
+font-weight:bold;
+color:black;
+background-color:#00FFFF;
+width:120px;
+text-align:center;
+padding:4px;
+text-decoration:none;}
+a.two:hover,a.two:active
+{background-color:black;color:#00FFFF;}
+a.one:link {color:#00FFFF;text-decoration:none;}
+a.one:visited {color:#00FFFF;text-decoration:none;}
+a.one:hover {text-decoration:underline;}
+
+a {text-decoration:none;font-variant:small-caps;}
+body {background-color:black;}
+table,th,td{border: 10px solid #00FFFF}
+p {color:#00FFFF;font-variant:small-caps;}
+h1 {color:#00FFFF;font-variant:small-caps;}
+h2   {color:#00FFFF;font-variant:small-caps;font-size:36pt;}
