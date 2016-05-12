@@ -1,0 +1,190 @@
+ Describe the makeup of matter.
+ Outline the four main classes of biochemical compounds.
+ Explain the role of biochemical reactions in living things.
+Lesson Vocabulary
+ atom
+ biochemical compound
+ biochemical reaction
+ carbohydrates
+ cellulose
+ chemical bond
+ chemical reaction
+ compound
+ element
+ enzyme
+ lipids
+ matter
+ metabolism
+ molecule
+ nucleic acids
+ proteins
+Introduction
+Did you ever wonder what you are made of? The short answer is matter. Matter is anything that has mass and takes up space. All living things consist of matter.
+What's the Matter?
+All known matter can be divided into a little more than 100 different substances called elements.
+Elements and Compounds
+An element is pure substance that cannot be broken down into other substances. Each element has a particular set of properties that, taken together, distinguish it from all other elements. Table below lists the major elements in the human body. As you can see, you consist mainly of the elements oxygen, carbon, and hydrogen.
+Element
+	Percent of Body Mass
+	Oxygen
+	65
+	Carbon
+	18
+	Hydrogen
+	10
+	Nitrogen
+	3
+	Calcium
+	1.5
+	Phosphorus
+	1.0
+	Potassium
+	0.35
+	Sulfur
+	0.25
+	In your body, most elements are combined with other elements to form chemical compounds. A compound is a unique type of matter in which two or more elements are combined chemically in a certain ratio. For example, much of the oxygen and hydrogen in your body are combined in the chemical compound water, or H2O.
+Atoms and Molecules
+The smallest particle of an element that still has the properties of that element is an atom. Atoms are extremely tiny. They can be observed only with an electron microscope. They are commonly represented by models, like the one Figure below. An atom has a central nucleus that is positive in charge. The nucleus is surrounded by negatively charged particles called electrons.
+ Model of an atom 
+
+Model of an atom
+The smallest particle of a compound that still has the properties of that compound is a molecule. A molecule consists of two or more atoms. For example, a molecule of water consists of two atoms of hydrogen and one atom of oxygen. That's why the chemical formula for water is H2O. You can see a simple model of a water molecule in Figure below.
+ Model of a water molecule 
+
+Model of a water molecule
+Biochemical Compounds
+Besides water, most of the compounds in living things are biochemical compounds. A biochemical compound is a carbon-based compound that is found in living organisms. Carbon is an element that has a tremendous ability to form large compounds. Each atom of carbon can form four chemical bonds with other atoms. A chemical bond is the sharing of electrons between atoms. Bonds hold the atoms together in chemical compounds. A carbon atom can form bonds with other carbon atoms or with atoms of other elements.
+Classes of Biochemical Compounds
+Biochemical compounds make up the cells and tissues of living things. They are also involved in all life processes. Given their diversity of functions, it's not surprising that there are millions of different biochemical compounds. Even so, all biochemical compounds can be grouped into just four main classes: carbohydrates, proteins, lipids, and nucleic acids. The classes are summarized in Table below.
+Class
+	Elements
+	Examples
+	Functions
+	Carbohydrates
+	carbon
+hydrogen
+oxygen
+	sugars
+starch
+glycogen
+cellulose
+	provide energy to cells
+stores energy in plants
+stores energy in animals
+makes up the cell walls of plants
+	Proteins
+	carbon
+hydrogen
+oxygen
+nitrogen
+sulfur
+	enzymes
+hormones
+	speed up biochemical reactions
+regulate life processes
+	Lipids
+	carbon
+hydrogen
+oxygen
+	fats
+oils
+phospholipids
+	store energy in animals
+store energy in plants
+make up cell membranes
+	Nucleic acids
+	carbon
+hydrogen
+oxygen
+nitrogen
+phosphorus
+	DNA
+RNA
+	stores genetic information in cells
+helps cells make proteins
+	Characteristics of Biochemical Compounds
+You can see from Table above that all biochemical compounds contain hydrogen and oxygen as well as carbon. They may also contain nitrogen, phosphorus, and/or sulfur. Almost all biochemical compounds are polymers. Polymers are large molecules that consist of many smaller, repeating molecules, called monomers.
+Most biochemical molecules are macromolecules. The prefix macro- means a large, and many biochemical molecules are very large indeed. They may contain thousands of monomer molecules. The largest known biochemical molecule contains more than 34,000 monomers!
+Carbohydrates
+Carbohydrates are biochemical compounds that include sugar, starch, glycogen, and cellulose. Sugars are simple carbohydrates with relatively small molecules. Glucose is one of the smallest sugar molecules. Its chemical formula is C6H12O6. This means that a molecule of glucose contains 6 atoms of carbon, 12 atoms of hydrogen, and 6 atoms of oxygen. Plants and some other organisms make glucose in the process of photosynthesis. Living things that cannot make glucose can obtain it by consuming plants or organisms that consume plants.
+Starches are complex carbohydrates. They are polymers of glucose. Starches contain hundreds of glucose monomers. Plants make starches to store extra glucose. Consumers can get starches by eating plants. Common sources of starches in the human diet are pictured Figure below. Our digestive system breaks down starches to sugar, which our cells use for energy. Like other animals, we store any extra glucose as the complex carbohydrate called glycogen. Glycogen is also a polymer of glucose.
+ Starchy foods 
+
+Starchy foods
+Cellulose is another complex carbohydrate found in plants that is a polymer of glucose. Cellulose molecules bundle together to form long, tough fibers. Cellulose is the most abundant biochemical compound. It makes up the cell walls of plants and gives support to stems and tree trunks.
+Proteins
+Proteins are biochemical compounds that consist of one or more chains of small molecules called amino acids. Amino acids are the monomers of proteins. There are only about 20 different amino acids. The sequence of amino acids in chains and the number of chains in a protein determine the protein's shape. Shapes may be very complex.
+The shape of a protein determines its function. Proteins have many different functions. For example, proteins:
+ make up muscle tissues.
+ speed up chemical reactions in cells.
+ regulate life processes.
+ help defend against infections.
+ transport materials around the body in the blood.
+Hemoglobin is an example of a transport protein in the blood. You can see how it works in Figure below. The heme parts of a hemoglobin molecule bind with oxygen. Each red blood cell has hundreds of hemoglobin molecules. This is how oxygen is carried in the blood to cells throughout the body.
+ How hemoglobin transports oxygen in the blood 
+
+How hemoglobin transports oxygen in the blood
+Lipids
+Lipids are biochemical compounds that living things use to store energy and make cell membranes. Types of lipids include fats, oils, and phospholipids.
+ Fats are solid lipids that animals use to store energy. Examples of fats include butter and the fat in meat.
+ Oils are liquid lipids that plants use to store energy. Examples of oils include olive oil and corn oil.
+ Phospholipids contain the element phosphorus. They make up the cell membranes of living things.
+Lipids are made of long chains consisting almost solely of carbon and hydrogen. These long chains are called fatty acids. Fatty acids may be saturated or unsaturated. Figure below shows an example of each type of fatty acid.
+ Saturated and unsaturated fatty acids 
+
+Saturated and unsaturated fatty acids
+ In saturated fatty acids, carbon atoms are bonded to as many hydrogen atoms as possible. In other words, the carbon atoms are saturated with hydrogen. Saturated fatty acids are found in fats.
+ In unsaturated fatty acids, some carbon atoms are not bonded to as many hydrogen atoms as possible. Instead, they share double bonds with other carbon atoms. Unsaturated fatty acids are found in oils.
+Nucleic Acids
+Nucleic acids are biochemical compounds that include RNA (ribonucleic acid) and DNA (deoxyribonucleic acid). Nucleic acids consist of chains of small molecules called nucleotides. Nucleotides are the monomers of nucleic acids. A nucleotide is shown in Figure below.
+ A nucleotide 
+
+A nucleotide
+Each nucleotide consists of:
+1. a phosphate group, which contains phosphorus and oxygen.
+2. a sugar, which is deoxyribose in DNA and ribose in RNA.
+3. one of four nitrogen-containing bases. (A base is a compound that is not neither acidic nor neutral.) In DNA, the bases are adenine, thymine, guanine, and cytosine. RNA has the base uracil instead of thymine, but the other three bases are the same.
+RNA consists of just one chain of nucleotides. DNA consists of two chains. Nitrogen bases on the two chains of DNA form bonds with each other. The bonded bases are called base pairs. Bonds form only between adenine and thymine, and between guanine and cytosine. They hold together the two chains of DNA and give it its characteristic double helix, or spiral, shape. You can see the shape of the DNA molecule in Figure below. Sugars and phosphate groups form the backbone of each chain of DNA. Determining the structure of DNA was a huge scientific breakthrough.
+ DNA molecule 
+
+DNA molecule
+DNA stores genetic information in the cells of all living things. It contains the genetic code. This is the code that instructs cells how to make proteins. The instructions are encoded in the sequence of nitrogen bases in DNAs nucleotide chains. RNA copies and interprets the genetic code in DNA. RNA is also involved in the synthesis of proteins based on the code. 
+Biochemical Reactions
+The student athlete in Figure below is practically flying down the track! Running takes a lot of energy. But you don't have to run a race to use energy. All living things need energy all the time just to stay alive. The energy is produced in chemical reactions. A chemical reaction is a process in which some substances, called reactants, change chemically into different substances, called products. Reactants and products may be elements or compounds.
+ Runner using energy 
+
+This student athlete is using energy to run a race.
+Chemical reactions that take place inside living things are called biochemical reactions. Living things depend on biochemical reactions for more than just energy. Every function and structure of a living organism depends on thousands of biochemical reactions taking place in each cell.
+Metabolism
+The sum of all of an organism's biochemical reactions is called metabolism. Biochemical reactions of metabolism can be divided into two general categories: catabolic reactions and anabolic reactions.
+ Anabolic reactions involve forming bonds. Smaller molecules combine to form larger ones. These reactions require energy. For example, it takes energy to build starches from sugars.
+ Catabolic reactions involve breaking bonds. Larger molecules break down to form smaller ones. These reactions release energy. For example, energy is released when starches break down to sugars.
+Enzymes
+Each of the trillions of cells in your body is continuously performing thousands of anabolic and catabolic reactions. That's an amazing number of biochemical reactions far more than the number of chemical reactions that might take place in a science lab or chemical plant. So many biochemical reactions can take place simultaneously in our cells because biochemical reactions occur very quickly. That's because of enzymes.
+Enzymes are proteins that increase the rate of biochemical reactions. Enzymes aren't changed or used up in the reactions, so they can be used to speed up the same reaction over and over again. Enzymes are highly specific for certain chemical reactions, so they are very effective. A reaction that would take years to occur without its enzyme might occur in a split second with the enzyme.
+Photosynthesis and Cellular Respiration
+Some of the most important biochemical reactions are the reactions involved in photosynthesis and cellular respiration.
+ Photosynthesis is the process in which producers capture light energy from the sun and use it to make glucose. This involves anabolic reactions.
+ Cellular respiration is the process in which energy is released from glucose and stored in smaller amounts in other molecules that cells can use for energy. This involves catabolic reactions.
+Photosynthesis and cellular respiration together provide energy to almost all living cells. Figure below shows how photosynthesis and cellular respiration are related. You can read more about both processes in the chapter Cell Functions.
+ Photosynthesis and cellular respiration cycle 
+
+The products of photosynthesis are oxygen (O2) and glucose. These two substances are also the reactants of cellular respiration. The products of cellular respiration are carbon dioxide (CO2) and water (H2O). These two substances are also the reactants of photosynthesis.
+Lesson Summary
+ All living things are made of matter. Matter can consist of pure substances called elements or of combinations of elements called chemical compounds. Atoms are the smallest particles of elements. Molecules are the smallest particles of compounds.
+ Biochemical compounds are carbon-based compounds that make up living organisms. There are four main classes of biochemical compounds: carbohydrates, proteins, lipids, and nucleic acids. The classes have different structures and functions.
+ Life depends on biochemical reactions constantly taking place inside cells. Metabolism is the sum of all the biochemical reactions in an organism. It includes anabolic reactions that build up molecules and catabolic reactions that break down molecules. Enzymes speed up biochemical reactions.
+Lesson Review Questions
+Recall
+1. What are elements and compounds? What are their smallest particles?
+2. Identify the four main classes of biochemical compounds. Give an example and list a function of each class.
+3. Define metabolism.
+Apply Concepts
+1. Lipids consist of fatty acids. Most nutrition experts agree that we should limit the amount of saturated fatty acids that we eat. They think that unsaturated fatty acids are healthier. To follow this advice, which foods should you limit? Which foods are healthier choices?
+Think Critically
+1. Explain the relationship between nucleic acids and proteins.
+2. Compare and contrast anabolic and catalytic reactions. Give an example of each type of reaction.
+Points to Consider
+All living things share many of the same biochemical compounds and biochemical reactions. Yet living things are extremely diverse.
+ How do scientists make sense of the diversity of living things?
+ How do modern scientists classify organisms? What types of traits do they use?

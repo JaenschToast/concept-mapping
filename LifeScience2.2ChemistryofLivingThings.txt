@@ -1,0 +1,84 @@
+Lesson Objectives
+ Describe what happens in chemical reactions.
+ State the role of energy in chemical reactions.
+ Explain the importance of enzymes to living organisms.
+Vocabulary
+ activation energy
+ anabolic reaction
+ biochemical reaction
+ catabolic reaction
+ endothermic reaction
+ enzyme
+ exothermic reaction
+ metabolism
+ product
+ reactant
+Introduction
+The element chlorine (Cl) is a greenish poison. Would you eat chlorine? Of course not, but you often eat a compound containing chlorine. In fact, you probably eat this chlorine compound just about every day. Do you know what it is? It's table salt. Table salt is sodium chloride (NaCl), which forms when chlorine and sodium (Na) combine in certain proportions. How does chlorine, a toxic green chemical, change into harmless white table salt? It happens in a chemical reaction.
+What Are Chemical Reactions?
+A chemical reaction is a process that changes some chemical substances into others. A substance that starts a chemical reaction is called a reactant, and a substance that forms as a result of a chemical reaction is called a product. During a chemical reaction, the reactants are used up to create the products.
+An example of a chemical reaction is the burning of methane, which is shown in Figure below. In this chemical reaction, the reactants are methane (CH4) and oxygen (O2), and the products are carbon dioxide (CO2) and water (H2O). A chemical reaction involves the breaking and forming of chemical bonds. When methane burns, bonds break in the methane and oxygen molecules, and new bonds form in the molecules of carbon dioxide and water.
+  
+
+Methane Burning. When methane burns, it combines with oxygen. What are the products of this chemical reaction?
+Chemical Equations
+A chemical reaction can be represented by a chemical equation. For example, the burning of methane can be represented by the chemical equation:
+CH4 + 2O2 CO2 + 2H2O
+The arrow in a chemical equation separates the reactants from the products and shows the direction in which the reaction proceeds. If the reaction could occur in the opposite direction as well, two arrows pointing in opposite directions would be used. The number 2 in front of O2 and H2O shows that two oxygen molecules and two water molecules are involved in the reaction. (With no number in front of a chemical symbol, just one molecule is involved.)
+Conservation of Matter
+In a chemical reaction, the quantity of each element does not change; there is the same amount of each element in the products as there was in the reactants. This is because matter is always conserved. The conservation of matter is reflected in a reactions chemical equation. The same number of atoms of each element appears on each side of the arrow. For example, in the chemical equation above, there are four hydrogen atoms on each side of the arrow. Can you find all four of them on each side of this equation?
+Chemical Reactions and Energy
+Chemical reactions always involve energy. When methane burns, for example, it releases energy in the form of heat and light. Other chemical reactions absorb energy rather than release it.
+Exothermic Reactions
+A chemical reaction that releases energy (as heat) is called an exothermic reaction. This type of reaction can be represented by a general chemical equation:
+Reactants = Products + Heat
+In addition to methane burning, another example of an exothermic reaction is chlorine combining with sodium to form table salt. This reaction also releases energy.
+Endothermic Reactions
+A chemical reaction that absorbs energy is called an endothermic reaction. This type of reaction can also be represented by a general chemical equation:
+Reactants + Heat = Products
+Did you ever use a chemical cold pack like the one in Figure below? The pack cools down because of an endothermic reaction. When a tube inside the pack is broken, it releases a chemical that reacts with water inside the pack. This reaction absorbs heat energy and quickly cools down the pack.
+ Ice Pack 
+
+This pack gets cold due to an endothermic reaction.
+Activation Energy
+All chemical reactions need energy to get started. Even reactions that release energy need a boost of energy in order to begin. The energy needed to start a chemical reaction is called activation energy. Activation energy is like the push a child needs to start going down a playground slide. The push gives the child enough energy to start moving, but once she starts,  she keeps moving without being pushed again. Activation energy is illustrated in Figure below.
+  
+
+Activation Energy. Activation energy provides the push needed to start a chemical reaction. Is the chemical reaction in this figure an exothermic or endothermic reaction?
+Why do all chemical reactions need energy to get started? In order for reactions to begin, reactant molecules must bump into each other, so they must be moving, and movement requires energy. When reactant molecules bump together, they may repel each other because of intermolecular forces pushing them apart. Overcoming these forces so the molecules can come together and react also takes energy.
+
+Biochemical Reactions and Enzymes
+Biochemical reactions are chemical reactions that take place inside the cells of living things. The field of biochemistry demonstrates that knowledge of chemistry as well as biology is needed to understand fully the life processes of organisms at the level of the cell. The sum of all the biochemical reactions in an organism is called metabolism. It includes both exothermic and endothermic reactions.
+Types of Biochemical Reactions
+Exothermic reactions in organisms are called catabolic reactions. These reactions break down molecules into smaller units and release energy. An example of a catabolic reaction is the breakdown of glucose, which releases energy that cells need to carry out life processes. Endothermic reactions in organisms are called anabolic reactions. These reactions build up bigger molecules from smaller ones. An example of an anabolic reaction is the joining of amino acids to form a protein. Which type of reactions catabolic or anabolic o you think occur when your body digests food?
+Enzymes
+Most biochemical reactions in organisms need help in order to take place. Why is this the case? For one thing, temperatures are usually too low inside living things for biochemical reactions to occur quickly enough to maintain life. The concentrations of reactants may also be too low for them to come together and react. Where do the biochemical reactions get the help they need to proceed? The help comes from enzymes.
+An enzyme is a protein that speeds up a biochemical reaction. An enzyme works by reducing the amount of activation energy needed to start the reaction. The graph in Figure below shows the activation energy needed for glucose to combine with oxygen. Less activation energy is needed when the correct enzyme is present than when it is not present. You can watch an animation of a biochemical reaction with and without an enzyme at the link below. 
+  
+
+Enzyme Action. This graph shows what happens when glucose combines with oxygen. An enzyme speeds up the reaction by lowering the activation energy. Compare the activation energy needed with and without the enzyme.
+Enzymes are involved in most biochemical reactions, and they do their job extremely well. A typical biochemical reaction could take several days to occur without an enzyme. With the proper enzyme, the same reaction can occur in just a split second! Without enzymes to speed up biochemical reactions, most organisms could not survive. The activities of enzymes depend on the temperature, ionic conditions, and the pH of the surroundings. Some enzymes work best at acidic pHs, while others work best in neutral environments.
+
+Lesson Summary
+ A chemical reaction is a process that changes some chemical substances into others. It involves breaking and forming chemical bonds.
+ Some chemical reactions release energy, whereas other chemical reactions absorb energy. All chemical reactions require activation energy to get started.
+ Enzymes are needed to speed up biochemical reactions in organisms. They work by lowering activation energy.
+Lesson Review Questions
+Recall
+1. Identify the roles of reactants and products in chemical reactions.
+2. What is the general chemical equation for an endothermic reaction?
+3. What are biochemical reactions? What is an example?
+4. How do enzymes speed up biochemical reactions?
+Apply Concepts
+5. What is wrong with the chemical equation below? How could you fix it?
+CH4 + O2 = CO2 + 2H2O
+6. What type of reaction is represented by the following chemical equation? Explain your answer.
+2Na + 2HCl = 2NaCl + H2 + heat
+Think Critically
+7. How does a chemical equation show that matter is always conserved in a chemical reaction?
+8. Why do all chemical reactions require activation energy?
+9. Explain why organisms need enzymes to survive.
+Points to Consider
+Most chemical reactions in organisms take place in an environment that is mostly water.
+ What do you know about water? How would you describe it?
+ Water behaves differently than most other substances. Do you know why?
