@@ -2,6 +2,7 @@ import nltk
 from nltk.corpus import wordnet as wn
 import matplotlib.pyplot as plt
 import networkx as nx
+import sys
 
 G = nx.Graph()                                                                      #Creates the graph
 
@@ -397,7 +398,6 @@ while True:
     save_format = raw_input("What format would you like to save the concept map as? [PNG,PDF,TXT,NONE]")
 
     if save_format == "NONE" or save_format == "none":
-        print("END PROGRAM")
         break
 
     save_name = raw_input("What would you like to name the file?")
@@ -409,7 +409,6 @@ while True:
         if save_continue == "Y":
             pass
         else:
-            print("END PROGRAM")
             break
 
     elif save_format == "PDF" or save_format == "pdf":
@@ -419,7 +418,6 @@ while True:
         if save_continue == "Y":
             pass
         else:
-            print("END PROGRAM")
             break
 
     elif save_format == "TXT" or save_format == "txt":
@@ -432,8 +430,80 @@ while True:
         if save_continue == "Y":
             pass
         else:
-            print("END PROGRAM")
             break
 
     else:
         print("ERROR #12: Please try again")
+
+while True:
+    teacher_in = raw_input("Would you like to import a gold standard to compare? [Y/N]")
+    if teacher_in == "Y" or teacher_in == "y":
+        document_name = raw_input("What is the document called? ")
+        try:                                                                        # Checks to see if document exsists
+            imported_document = open(document_name, 'r')
+            text = imported_document.read()
+            break
+
+        except IOError:                                                             # If document doesn't exsist it outputs an error code
+            print("Error #2: No such file")
+
+    elif teacher_in == "N" or teacher_in == "n":
+        print("END PROGRAM")
+        sys.exit()
+
+    else:
+        print("ERROR #13: Please try again")
+
+tokens = nltk.word_tokenize(text)                                                   #Creates tokens
+
+number_of_tokens = len(tokens)                                                      #Counts the number of tokens
+
+gold_standard = []
+
+for x in range (0,number_of_tokens):
+    if (x % 3 == 0 or x == 0) and (x<number_of_tokens-2):
+        gold_standard.append(tokens[x]+" " +tokens[x+1]+" "+tokens[x+2])
+        gold_standard.append(tokens[x+2]+" "+tokens[x+1]+" "+tokens[x])
+
+concept_comparison = []
+
+for x in range (0,concept_connection_counter):
+    if x<concept_connection_counter-2:
+        concept_comparison.append(str(concept_connections[x][0])+" "+str(concept_connections[x][1])+" "+str(concept_connections[x][2]))
+
+concept_comparison = set(concept_comparison)
+
+concept_comparison = list(concept_comparison)
+
+number_of_master_prop = number_of_tokens/3
+
+similar_prop = 0
+
+good_prop = []
+
+for x in gold_standard:
+    for y in concept_comparison:
+        if x == y:
+            similar_prop = similar_prop + 1
+            good_prop.append(y)
+
+for x in good_prop:
+    try:
+        concept_comparison.remove(x)
+    except ValueError:
+        pass
+
+similarity_percentage = (similar_prop)/(number_of_master_prop)*100
+
+num_useless = concept_connection_counter-similar_prop
+
+print("The student had " + str(similar_prop) + " propositions in common with the gold standard of " + str(number_of_master_prop) + " propositions.")
+
+print(str(similar_prop) + "/" + str(number_of_master_prop) + " = " + str(similarity_percentage) + "%")
+
+print("The student had " + str(num_useless) + " useless propositions.")
+
+print("The useless propositions were: ")
+
+for x in concept_comparison:
+    print(x)
