@@ -8,22 +8,22 @@ def index():
     return dict(message=T('Hello!'))
 
 def form():
-    db = DAL('sqlite://storage.sqlite')
-    db.define_table('person',
+    db.define_table('info',
     Field('name', requires=IS_NOT_EMPTY()),
     Field('married', 'boolean'),
     Field('gender', requires=IS_IN_SET(['Male', 'Female', 'Other'])),
     Field('profile', 'text'),
     Field('image', 'upload'))
-    SQLFORM(db.person)
-    form = SQLFORM(db.person)
+    SQLFORM(db.info)
+    form = SQLFORM(db.info)
     if form.process().accepted:
 	response.flash = 'form accepted'
     elif form.errors:
 	response.flash = 'form has errors'
     else:
 	response.flash = 'please fill out the form'
-    return dict(form=form)
+    test = form.vars.name
+    return dict(form=form, test=test)
 """
     form = FORM(TABLE(
         TR('Your first name:', INPUT(_type='text', _name='firstname',
