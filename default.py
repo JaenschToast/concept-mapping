@@ -8,7 +8,23 @@ def index():
     return dict(message=T('Hello!'))
 
 def form():
-
+    db.define_table('info',
+    Field('name', requires=IS_NOT_EMPTY()),
+    Field('married', 'boolean'),
+    Field('gender', requires=IS_IN_SET(['Male', 'Female', 'Other'])),
+    Field('profile', 'text'),
+    Field('image', 'upload'))
+    SQLFORM(db.info)
+    form = SQLFORM(db.info)
+    if form.process().accepted:
+	response.flash = 'form accepted'
+    elif form.errors:
+	response.flash = 'form has errors'
+    else:
+	response.flash = 'please fill out the form'
+    test = form.vars.name
+    return dict(form=form, test=test)
+"""
     form = FORM(TABLE(
         TR('Your first name:', INPUT(_type='text', _name='firstname',
            requires=IS_NOT_EMPTY())),
@@ -22,8 +38,7 @@ def form():
         response.flash = 'form is invalid'
     else:
         response.flash = 'please fill the form'
-    return dict(form=form, vars=form.vars)
-
+    return dict(form=form, vars=form.vars)"""
 
 
 def user():
