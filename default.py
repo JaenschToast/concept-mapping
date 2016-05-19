@@ -8,6 +8,7 @@ def form():
            requires=IS_NOT_EMPTY())),
         TR('Your last name:', INPUT(_type='text', _name='lastname',
            requires=IS_NOT_EMPTY())),
+	TR('', INPUT(_type='submit', _value='SUBMIT')),
     ))
     if form.process().accepted:
         response.flash = 'form accepted'
