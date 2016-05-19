@@ -1,3 +1,9 @@
+import nltk
+from nltk.corpus import wordnet as wn
+import matplotlib.pyplot as plt
+import networkx as nx
+import sys
+
 def index():
     return dict(message=T('Hello!'))
 
