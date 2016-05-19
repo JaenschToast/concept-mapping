@@ -12,6 +12,24 @@
 def index():
     return dict(message=T('Hello!'))
 
+def form():
+    """ a simple entry form with various types of objects """
+
+    form = FORM(TABLE(
+        TR('Your first name:', INPUT(_type='text', _name='firstname',
+           requires=IS_NOT_EMPTY())),
+        TR('Your last name:', INPUT(_type='text', _name='lastname',
+           requires=IS_NOT_EMPTY())),
+    ))
+    if form.process().accepted:
+        response.flash = 'form accepted'
+    elif form.errors:
+        response.flash = 'form is invalid'
+    else:
+        response.flash = 'please fill the form'
+    return dict(form=form, vars=form.vars)
+
+
 
 def user():
     """
