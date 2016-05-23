@@ -20,7 +20,7 @@ p {color:#00FFFF;font-variant:small-caps;}
 h1 {color:#00FFFF;font-variant:small-caps;text-align:center;font-weight:bold}
 h2   {color:#00FFFF;font-variant:small-caps;font-size:36pt;}
 
-input[type = "button"]
+input[type = "submit"]
 {
-	color:black;font-variant:small-caps;text-align:center;font-weight:bold
+	font-color:black;font-variant:small-caps;text-align:center;font-weight:bold; font-size:5em
 }
