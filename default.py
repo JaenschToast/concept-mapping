@@ -4,6 +4,9 @@ import matplotlib.pyplot as plt
 import networkx as nx
 import sys
 
+def homepage():
+	return dict(message=T(''))
+
 def textapp():
     db.define_table('info',
     Field('text_in', 'text'),
@@ -18,7 +21,7 @@ def textapp():
         response.flash = 'form has errors'
     else:
         response.flash = 'please fill out the form'
-    test = form.vars.name
+    test = form.vars.text_in
     return dict(form=form, test=test)
 
 def index():
