@@ -7,7 +7,7 @@ import sys
 def homepage():
 	return dict(message=T(''))
 
-def textapp():
+def form_text():
     db.define_table('info',
     Field('text_in', 'text'),
     Field('how_many_concepts', requires=IS_NOT_EMPTY()),
