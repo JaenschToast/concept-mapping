@@ -8,21 +8,15 @@ def homepage():
 	return dict(message=T(''))
 
 def form_text():
-    db.define_table('info',
+    db.define_table('concept_info',
     Field('text_in', 'text'),
     Field('how_many_concepts', requires=IS_NOT_EMPTY()),
     Field('verb_length', requires=IS_NOT_EMPTY()),
     Field('save_format', requires=IS_IN_SET(['PDF', 'TXT', 'NONE'])))
-    SQLFORM(db.info)
-    form = SQLFORM(db.info)
-    if form.process().accepted:
-        response.flash = 'form accepted'
-    elif form.errors:
-        response.flash = 'form has errors'
-    else:
-        response.flash = 'please fill out the form'
-    test = form.vars.text_in
-    return dict(form=form, test=test)
+    SQLFORM(db.concept_info)
+    form_text = SQLFORM(db.concept_info)
+    test = form_text.vars.text_in
+    return dict(form_text=form_text, test=test)
 
 def index():
     return dict(message=T('Hello!'))
