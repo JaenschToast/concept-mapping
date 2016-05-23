@@ -12,10 +12,14 @@ def form_text():
     Field('text_in', 'text'),
     Field('how_many_concepts', requires=IS_NOT_EMPTY()),
     Field('verb_length', requires=IS_NOT_EMPTY()),
-    Field('save_format', requires=IS_IN_SET(['PDF', 'TXT', 'NONE'])))
+    Field('save_format', requires=IS_IN_SET(['PDF', 'TXT', 'NONE'])),
+    Field('concept_a', 'text'),
+    Field('concept_r', 'text'))
     SQLFORM(db.concept_info)
     form_text = SQLFORM(db.concept_info)
     texting = request.vars.text_in
+    concept_add = request.vars.concept_a
+    concept_remove = request.vars.concept_r
 
     G = nx.Graph()  # Creates the graph
 
@@ -84,7 +88,7 @@ def form_text():
 
     node_list = []  # This list will hold all of the nodes with an index
 
-    tokens = nltk.word_tokenize(texting)  # Creates tokens
+    tokens = nltk.word_tokenize(str(texting))  # Creates tokens
 
     number_of_tokens = len(tokens)  # Counts the number of tokens
 
@@ -158,6 +162,24 @@ def form_text():
                     weighted_concepts.keys()[d])  # Adds concept to a list in order of most frequent to least frequent
 
     number_of_ordered_concepts = len(ordered_concepts)
+
+    while True:  # User can add or remove concepts
+        try:
+            if concept_add != "":
+                concept_add = concept_add.lower()
+                for x in concept_add:
+                    if ordered_concepts.count(concept_add) == 0:
+                        ordered_concepts.append(concept_add)
+                    else:
+                        pass
+
+            if concept_delete != "":
+                concept_delete = concept_delete.lower()
+                for x in concept_delete:
+                    ordered_concepts.remove(concept_delete)
+
+        except ValueError:
+            pass
 
     return dict(form_text=form_text, concepts=concepts)
 
