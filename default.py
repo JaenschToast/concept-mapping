@@ -12,14 +12,15 @@ def form_text():
     Field('text_in', 'text'),
     Field('how_many_concepts', requires=IS_NOT_EMPTY()),
     Field('verb_length', requires=IS_NOT_EMPTY()),
-    Field('save_format', requires=IS_IN_SET(['PDF', 'TXT', 'NONE'])),
-    Field('concept_a', 'text'),
-    Field('concept_r', 'text'))
+    Field('concepts_to_add', 'text'),
+    Field('concepts_to_remove', 'text'),
+    Field('save_format', requires=IS_IN_SET(['PDF', 'TXT', 'NONE'])))
     SQLFORM(db.concept_info)
     form_text = SQLFORM(db.concept_info)
     texting = request.vars.text_in
-    concept_add = request.vars.concept_a
-    concept_remove = request.vars.concept_r
+    verb_num = request.vars.verb_length
+    concept_add = request.vars.concepts_to_add
+    concept_delete = request.vars.concepts_to_remove
 
     G = nx.Graph()  # Creates the graph
 
@@ -163,25 +164,76 @@ def form_text():
 
     number_of_ordered_concepts = len(ordered_concepts)
 
-    while True:  # User can add or remove concepts
-        try:
-            if concept_add != "":
-                concept_add = concept_add.lower()
-                for x in concept_add:
-                    if ordered_concepts.count(concept_add) == 0:
-                        ordered_concepts.append(concept_add)
-                    else:
-                        pass
+    concept_add = nltk.word_tokenize(str(concept_add))
 
-            if concept_delete != "":
-                concept_delete = concept_delete.lower()
-                for x in concept_delete:
-                    ordered_concepts.remove(concept_delete)
+    concept_delete = nltk.word_tokenize(str(concept_delete))
 
-        except ValueError:
+    for x in concept_add:
+        if ordered_concepts.count(x) == 0:
+            concept_add = x.lower()
+            ordered_concepts.append(concept_add)
+        else:
             pass
 
-    return dict(form_text=form_text, concepts=concepts)
+    for x in concept_delete:
+        concept_delete = x.lower()
+        ordered_concepts.remove(concept_delete)
+
+    concept_connection_counter = 0
+
+    tags_check = [25, 26, 27, 28, 29, 30]
+
+    sensitivity = str(verb_num)
+    '''
+    for h in range(0, 15):  # Repeats once for every concept
+        token_location = 0
+        for i in (tokens):  # Cycles through the document
+            try:
+                if i == ordered_concepts[h]:
+                    for j in range(0, sensitivity):  # Checks the next X words for connecting verb
+                        for k in tags_check:
+                            if (tokens_with_tags[token_location + j][1] == tags[k]) and (
+                                tokens_with_tags[token_location + j][0].lower() != ordered_concepts[h]):
+                                if tokens_with_tags[token_location + j][0].lower() in ordered_concepts:
+                                    pass
+                                else:
+                                    for l in range(0, sensitivity):  # Checks the next X words for connecting concept
+                                        for m in ordered_concepts:
+                                            if (tokens[token_location + j + l].lower() == m) and (
+                                                tokens[token_location + j + l].lower() != ordered_concepts[h]) and (
+                                                tokens[token_location + j + l].lower() != tokens[
+                                                    token_location + j].lower()):
+                                                if ordered_concepts[h] + tokens[token_location + j] + tokens[
+                                                                    token_location + j + l] in concept_duplication:  # Checks for duplicates
+                                                    pass
+                                                else:
+                                                    concept_connections.append(
+                                                        [])  # Creates three lists inside one concept_connections index
+                                                    for o in range(0, 4):  # REMOVE 4TH ADDITION IF NOT NEEDED
+                                                        concept_connections[concept_connection_counter].append(
+                                                            "")  # Adds concepts to "master list"
+                                                    concept_connections[concept_connection_counter][0] = \
+                                                    ordered_concepts[h]
+                                                    concept_connections[concept_connection_counter][1] = tokens[
+                                                        token_location + j]
+                                                    concept_connections[concept_connection_counter][2] = tokens[
+                                                        token_location + j + l]
+                                                    concept_connections[concept_connection_counter][
+                                                        3] = 1  # Counts the amount of times a group is repeated
+                                                    # j = 100
+                                                    # l = 100
+                                                    # print(str(concept_connections[concept_connection_counter][0]) + " " + str(concept_connections[concept_connection_counter][1]) + " " + str(j) + " " + str(concept_connections[concept_connection_counter][2]) + " " + str(l))
+                                                    concept_duplication.add(
+                                                        ordered_concepts[h] + tokens[token_location + j] + tokens[
+                                                            token_location + j + l])
+                                                    concept_connection_counter = concept_connection_counter + 1
+
+            except IndexError:
+                pass
+            token_location = token_location + 1  # Tracks index of token
+    '''
+    return dict(form_text=form_text, concept_connections=concept_connections, sensitivity=sensitivity)
+
 
 def index():
     return dict(message=T('Hello!'))
