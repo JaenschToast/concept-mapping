@@ -4,6 +4,23 @@ import matplotlib.pyplot as plt
 import networkx as nx
 import sys
 
+def textapp():
+    db.define_table('info',
+    Field('text_in', 'text'),
+    Field('how_many_concepts', requires=IS_NOT_EMPTY()),
+    Field('verb_length', requires=IS_NOT_EMPTY()),
+    Field('save_format', requires=IS_IN_SET(['PDF', 'TXT', 'NONE'])))
+    SQLFORM(db.info)
+    form = SQLFORM(db.info)
+    if form.process().accepted:
+        response.flash = 'form accepted'
+    elif form.errors:
+        response.flash = 'form has errors'
+    else:
+        response.flash = 'please fill out the form'
+    test = form.vars.name
+    return dict(form=form, test=test)
+
 def index():
     return dict(message=T('Hello!'))
 
@@ -17,11 +34,11 @@ def form():
     SQLFORM(db.info)
     form = SQLFORM(db.info)
     if form.process().accepted:
-	response.flash = 'form accepted'
+	    response.flash = 'form accepted'
     elif form.errors:
-	response.flash = 'form has errors'
+	    response.flash = 'form has errors'
     else:
-	response.flash = 'please fill out the form'
+	    response.flash = 'please fill out the form'
     test = form.vars.name
     return dict(form=form, test=test)
 """
