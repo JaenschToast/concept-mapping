@@ -320,17 +320,21 @@ def form_text():
 
     plt.figure(num=None, figsize=(40, 22.5), dpi=120)
 
-    nodes = nx.draw_networkx_nodes(G, pos, nodelist=nodelistA, node_size=200, node_color='cyan')
+    try:
+        nodes = nx.draw_networkx_nodes(G, pos, nodelist=nodelistA, node_size=200, node_color='cyan')
 
-    nodes.set_edgecolor('white')
+        nodes.set_edgecolor('white')
 
-    nodes = nx.draw_networkx_nodes(G, pos, nodelist=nodelistB, node_size=200, node_color='white')
+        nodes = nx.draw_networkx_nodes(G, pos, nodelist=nodelistB, node_size=200, node_color='white')
 
-    nodes.set_edgecolor('white')
+        nodes.set_edgecolor('white')
 
-    nx.draw_networkx_edges(G, pos, edgelist=e, width=2, edge_color="gray", alpha=0.7)
+        nx.draw_networkx_edges(G, pos, edgelist=e, width=2, edge_color="gray", alpha=0.7)
 
-    nx.draw_networkx_labels(G, pos, font_size=12, font_color='black')
+        nx.draw_networkx_labels(G, pos, font_size=12, font_color='black')
+
+    except AttributeError:
+        pass
 
     plt.axis('off')
     # plt.show()
