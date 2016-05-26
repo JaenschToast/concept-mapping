@@ -26,7 +26,10 @@ def form_text():
     concept_delete = request.vars.concepts_to_remove
     stored_concepts = request.vars.how_many_concepts
 
-    stored_concepts = int(stored_concepts)
+    try:
+        stored_concepts = int(stored_concepts)
+    except TypeError:
+        pass
 
     G = nx.Graph()  # Creates the graph
 
