@@ -12,14 +12,24 @@ def form_text():
     Field('text_in', 'text'),
     Field('how_many_concepts', requires=IS_NOT_EMPTY()),
     Field('verb_length', requires=IS_NOT_EMPTY()),
-    Field('save_format', requires=IS_IN_SET(['PDF', 'TXT', 'NONE'])),
-    Field('concept_a', 'text'),
-    Field('concept_r', 'text'))
-    SQLFORM(db.concept_info)
+    Field('concepts_to_add', 'text'),
+    Field('concepts_to_remove', 'text'),
+    Field('format_to_save_as', requires=IS_IN_SET(['PDF', 'TXT', 'NONE'])),
+    Field('name_to_save_as', requires=IS_NOT_EMPTY()))
+    form = SQLFORM(db.concept_info)
     form_text = SQLFORM(db.concept_info)
+    save_name = request.vars.name_to_save_as
+    save_format = request.vars.format_to_save_as
     texting = request.vars.text_in
-    concept_add = request.vars.concept_a
-    concept_remove = request.vars.concept_r
+    verb_num = request.vars.verb_length
+    concept_add = request.vars.concepts_to_add
+    concept_delete = request.vars.concepts_to_remove
+    stored_concepts = request.vars.how_many_concepts
+
+    try:
+        stored_concepts = int(stored_concepts)
+    except TypeError:
+        pass
 
     G = nx.Graph()  # Creates the graph
 
@@ -163,25 +173,193 @@ def form_text():
 
     number_of_ordered_concepts = len(ordered_concepts)
 
-    while True:  # User can add or remove concepts
-        try:
-            if concept_add != "":
-                concept_add = concept_add.lower()
-                for x in concept_add:
-                    if ordered_concepts.count(concept_add) == 0:
-                        ordered_concepts.append(concept_add)
-                    else:
-                        pass
+    try:
+        for e in range(number_of_ordered_concepts - stored_concepts):
+            ordered_concepts.pop()
+    except TypeError:
+        pass
 
-            if concept_delete != "":
-                concept_delete = concept_delete.lower()
-                for x in concept_delete:
-                    ordered_concepts.remove(concept_delete)
+    concept_add = nltk.word_tokenize(str(concept_add))
 
-        except ValueError:
+    concept_delete = nltk.word_tokenize(str(concept_delete))
+
+    for x in concept_add:
+        if ordered_concepts.count(x) == 0:
+            concept_add = x.lower()
+            ordered_concepts.append(concept_add)
+        else:
             pass
 
-    return dict(form_text=form_text, concepts=concepts)
+    for x in concept_delete:
+        concept_delete = x.lower()
+        ordered_concepts.remove(concept_delete)
+
+    concept_connection_counter = 0
+
+    tags_check = [25, 26, 27, 28, 29, 30]
+
+    sensitivity = 0
+
+    try:
+        sensitivity = int(verb_num)
+    except TypeError:
+        pass
+
+    for h in range(0, 15):  # Repeats once for every concept
+        token_location = 0
+        for i in (tokens):  # Cycles through the document
+            try:
+                if i == ordered_concepts[h]:
+                    for j in range(0, sensitivity):  # Checks the next X words for connecting verb
+                        for k in tags_check:
+                            if (tokens_with_tags[token_location + j][1] == tags[k]) and (
+                                tokens_with_tags[token_location + j][0].lower() != ordered_concepts[h]):
+                                if tokens_with_tags[token_location + j][0].lower() in ordered_concepts:
+                                    pass
+                                else:
+                                    for l in range(0, sensitivity):  # Checks the next X words for connecting concept
+                                        for m in ordered_concepts:
+                                            if (tokens[token_location + j + l].lower() == m) and (
+                                                tokens[token_location + j + l].lower() != ordered_concepts[h]) and (
+                                                tokens[token_location + j + l].lower() != tokens[
+                                                    token_location + j].lower()):
+                                                if ordered_concepts[h] + tokens[token_location + j] + tokens[
+                                                                    token_location + j + l] in concept_duplication:  # Checks for duplicates
+                                                    pass
+                                                else:
+                                                    concept_connections.append(
+                                                        [])  # Creates three lists inside one concept_connections index
+                                                    for o in range(0, 4):  # REMOVE 4TH ADDITION IF NOT NEEDED
+                                                        concept_connections[concept_connection_counter].append(
+                                                            "")  # Adds concepts to "master list"
+                                                    concept_connections[concept_connection_counter][0] = \
+                                                    ordered_concepts[h]
+                                                    concept_connections[concept_connection_counter][1] = tokens[
+                                                        token_location + j]
+                                                    concept_connections[concept_connection_counter][2] = tokens[
+                                                        token_location + j + l]
+                                                    concept_connections[concept_connection_counter][
+                                                        3] = 1  # Counts the amount of times a group is repeated
+                                                    # j = 100
+                                                    # l = 100
+                                                    # print(str(concept_connections[concept_connection_counter][0]) + " " + str(concept_connections[concept_connection_counter][1]) + " " + str(j) + " " + str(concept_connections[concept_connection_counter][2]) + " " + str(l))
+                                                    concept_duplication.add(
+                                                        ordered_concepts[h] + tokens[token_location + j] + tokens[
+                                                            token_location + j + l])
+                                                    concept_connection_counter = concept_connection_counter + 1
+
+            except IndexError:
+                pass
+            token_location = token_location + 1  # Tracks index of token
+
+    nodelistA = []  # This list will hold the concepts
+    nodelistB = []  # This list will hold the verbs
+
+    for x in range(0, concept_connection_counter):
+        if concept_connections[x][0] in G.nodes():  # Adds a new node
+            pass
+        else:
+            G.add_node(concept_connections[x][0])
+            nodelistA.append(concept_connections[x][0])  # Sets node to concept group
+
+        if concept_connections[x][1] in G.nodes():  # Adds a new node
+            pass
+        else:
+            G.add_node(concept_connections[x][1])
+            nodelistB.append(concept_connections[x][1])  # Sets node to verb group
+
+        if concept_connections[x][2] in G.nodes():  # Adds a new node
+            pass
+        else:
+            G.add_node(concept_connections[x][2])
+            nodelistA.append(concept_connections[x][2])  # Sets node to concept group
+
+        a = G.nodes().index(concept_connections[x][0])  # Stores index of node
+        b = G.nodes().index(concept_connections[x][1])
+
+        if str(a) + str(b) in node_duplication:  # Checks if the node is already placed
+            for o in range(0, node_connection_counter):
+                if node_connections[o][0] == a and node_connections[o][1] == b:
+                    node_connections[o][2] = node_connections[o][
+                                                 2] + 1  # Adds one to the weight counter of node connections
+                    o = node_connection_counter
+        else:
+            node_connections.append([])  # Adds the node connections to a list
+            for c in range(0, 3):
+                node_connections[node_connection_counter].append("")
+            node_connections[node_connection_counter][0] = a
+            node_connections[node_connection_counter][1] = b
+            node_connections[node_connection_counter][2] = 1
+            node_connection_counter = node_connection_counter + 1
+            node_duplication.add(str(a) + str(b))
+
+        a = G.nodes().index(concept_connections[x][1])  # Same as above
+        b = G.nodes().index(concept_connections[x][2])
+
+        if str(a) + str(b) in node_duplication:
+            for o in range(0, node_connection_counter):
+                if node_connections[o][0] == a and node_connections[o][1] == b:
+                    node_connections[o][2] = node_connections[o][2] + 1
+                    o = node_connection_counter
+        else:
+            node_connections.append([])
+            for c in range(0, 3):
+                node_connections[node_connection_counter].append("")
+            node_connections[node_connection_counter][0] = a
+            node_connections[node_connection_counter][1] = b
+            node_connections[node_connection_counter][2] = 1
+            node_connection_counter = node_connection_counter + 1
+            node_duplication.add(str(a) + str(b))
+
+        G.add_edge(concept_connections[x][0], concept_connections[x][1])
+        G.add_edge(concept_connections[x][1], concept_connections[x][2])
+
+    e = [(u, v) for (u, v, d) in G.edges(data=True)]
+
+    pos = nx.spring_layout(G, scale=50)
+
+    plt.figure(num=None, figsize=(40, 22.5), dpi=120)
+
+    try:
+        nodes = nx.draw_networkx_nodes(G, pos, nodelist=nodelistA, node_size=200, node_color='cyan')
+
+        nodes.set_edgecolor('white')
+
+        nodes = nx.draw_networkx_nodes(G, pos, nodelist=nodelistB, node_size=200, node_color='white')
+
+        nodes.set_edgecolor('white')
+
+        nx.draw_networkx_edges(G, pos, edgelist=e, width=2, edge_color="gray", alpha=0.7)
+
+        nx.draw_networkx_labels(G, pos, font_size=12, font_color='black')
+
+    except AttributeError:
+        pass
+
+    plt.axis('off')
+    # plt.show()
+
+    for x in G.nodes():
+        node_list.append(x)
+
+    save_format = str(save_format)
+
+    save_name = str(save_name)
+
+    if save_format == "PDF":
+        new_name = save_name + ".pdf"
+        plt.savefig(new_name)  # Creates pdf file
+
+    elif save_format == "TXT":
+        new_name = save_name + ".txt"
+        file = open(new_name, "w")  # Creates txt file
+        for x in range(0, concept_connection_counter):  # Adds concepts to file
+            file.write(concept_connections[x][0] + chr(9) + concept_connections[x][1] + chr(9) + concept_connections[x][
+                2] + "\n")
+        file.close()  # Saves and closes the file
+
+    return dict(form_text=form_text)
+
 
 def index():
     return dict(message=T('Hello!'))
