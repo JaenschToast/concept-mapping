@@ -8,6 +8,9 @@ def homepage():
 	return dict(message=T(''))
 
 def form_text():
+    texting = ""
+    verb_num = 4
+    stored_concepts = 15
     db.define_table('concept_info',
     Field('text_in', 'text'),
     Field('how_many_concepts', requires=IS_NOT_EMPTY()),
