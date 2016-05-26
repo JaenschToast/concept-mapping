@@ -173,8 +173,11 @@ def form_text():
 
     number_of_ordered_concepts = len(ordered_concepts)
 
-    for e in range(number_of_ordered_concepts - stored_concepts):
-        ordered_concepts.pop()
+    try:
+        for e in range(number_of_ordered_concepts - stored_concepts):
+            ordered_concepts.pop()
+    except TypeError:
+        pass
 
     concept_add = nltk.word_tokenize(str(concept_add))
 
