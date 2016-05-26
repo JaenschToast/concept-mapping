@@ -16,7 +16,7 @@ def form_text():
     Field('concepts_to_remove', 'text'),
     Field('format_to_save_as', requires=IS_IN_SET(['PDF', 'TXT', 'NONE'])),
     Field('name_to_save_as', requires=IS_NOT_EMPTY()))
-    SQLFORM(db.concept_info)
+    form = SQLFORM(db.concept_info)
     form_text = SQLFORM(db.concept_info)
     save_name = request.vars.name_to_save_as
     save_format = request.vars.format_to_save_as
