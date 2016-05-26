@@ -358,7 +358,7 @@ def form_text():
                 2] + "\n")
         file.close()  # Saves and closes the file
 
-    return dict(form_text=form_text, concept_connections=concept_connections, sensitivity=sensitivity)
+    return dict(form_text=form_text)
 
 
 def index():
