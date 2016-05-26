@@ -8,26 +8,40 @@ def homepage():
 	return dict(message=T(''))
 
 def form_text():
-    texting = ""
-    verb_num = 4
-    stored_concepts = 15
     db.define_table('concept_info',
     Field('text_in', 'text'),
     Field('how_many_concepts', requires=IS_NOT_EMPTY()),
     Field('verb_length', requires=IS_NOT_EMPTY()),
     Field('concepts_to_add', 'text'),
     Field('concepts_to_remove', 'text'),
-    Field('format_to_save_as', requires=IS_IN_SET(['PDF', 'TXT', 'NONE'])),
+    Field('PDF', 'boolean'),
+    Field('TXT', 'boolean'),
     Field('name_to_save_as', requires=IS_NOT_EMPTY()))
     form = SQLFORM(db.concept_info)
     form_text = SQLFORM(db.concept_info)
     save_name = request.vars.name_to_save_as
-    save_format = request.vars.format_to_save_as
+    save_pdf = request.vars.PDF
+    save_txt = request.vars.TXT
     texting = request.vars.text_in
     verb_num = request.vars.verb_length
     concept_add = request.vars.concepts_to_add
     concept_delete = request.vars.concepts_to_remove
     stored_concepts = request.vars.how_many_concepts
+
+    if texting:
+        pass
+    else:
+        texting = ""
+
+    if verb_num:
+        pass
+    else:
+        verb_num = 4
+
+    if stored_concepts:
+        pass
+    else:
+        stored_concepts = 15
 
     try:
         stored_concepts = int(stored_concepts)
@@ -344,16 +358,21 @@ def form_text():
 
     for x in G.nodes():
         node_list.append(x)
+    try:
+        save_pdf = str(save_pdf)
 
-    save_format = str(save_format)
+        save_txt = str(save_txt)
+
+    except TypeError:
+        pass
 
     save_name = str(save_name)
 
-    if save_format == "PDF":
+    if save_pdf == "on":
         new_name = save_name + ".pdf"
         plt.savefig(new_name)  # Creates pdf file
 
-    elif save_format == "TXT":
+    if save_txt == "on":
         new_name = save_name + ".txt"
         file = open(new_name, "w")  # Creates txt file
         for x in range(0, concept_connection_counter):  # Adds concepts to file
