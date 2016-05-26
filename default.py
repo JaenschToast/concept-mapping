@@ -14,13 +14,19 @@ def form_text():
     Field('verb_length', requires=IS_NOT_EMPTY()),
     Field('concepts_to_add', 'text'),
     Field('concepts_to_remove', 'text'),
-    Field('save_format', requires=IS_IN_SET(['PDF', 'TXT', 'NONE'])))
+    Field('format_to_save_as', requires=IS_IN_SET(['PDF', 'TXT', 'NONE'])),
+    Field('name_to_save_as', requires=IS_NOT_EMPTY()))
     SQLFORM(db.concept_info)
     form_text = SQLFORM(db.concept_info)
+    save_name = request.vars.name_to_save_as
+    save_format = request.vars.format_to_save_as
     texting = request.vars.text_in
     verb_num = request.vars.verb_length
     concept_add = request.vars.concepts_to_add
     concept_delete = request.vars.concepts_to_remove
+    stored_concepts = request.vars.how_many_concepts
+
+    stored_concepts = int(stored_concepts)
 
     G = nx.Graph()  # Creates the graph
 
@@ -164,6 +170,9 @@ def form_text():
 
     number_of_ordered_concepts = len(ordered_concepts)
 
+    for e in range(number_of_ordered_concepts - stored_concepts):
+        ordered_concepts.pop()
+
     concept_add = nltk.word_tokenize(str(concept_add))
 
     concept_delete = nltk.word_tokenize(str(concept_delete))
@@ -183,8 +192,13 @@ def form_text():
 
     tags_check = [25, 26, 27, 28, 29, 30]
 
-    sensitivity = str(verb_num)
-    '''
+    sensitivity = 0
+
+    try:
+        sensitivity = int(verb_num)
+    except TypeError:
+        pass
+
     for h in range(0, 15):  # Repeats once for every concept
         token_location = 0
         for i in (tokens):  # Cycles through the document
@@ -231,7 +245,109 @@ def form_text():
             except IndexError:
                 pass
             token_location = token_location + 1  # Tracks index of token
-    '''
+
+    nodelistA = []  # This list will hold the concepts
+    nodelistB = []  # This list will hold the verbs
+
+    for x in range(0, concept_connection_counter):
+        if concept_connections[x][0] in G.nodes():  # Adds a new node
+            pass
+        else:
+            G.add_node(concept_connections[x][0])
+            nodelistA.append(concept_connections[x][0])  # Sets node to concept group
+
+        if concept_connections[x][1] in G.nodes():  # Adds a new node
+            pass
+        else:
+            G.add_node(concept_connections[x][1])
+            nodelistB.append(concept_connections[x][1])  # Sets node to verb group
+
+        if concept_connections[x][2] in G.nodes():  # Adds a new node
+            pass
+        else:
+            G.add_node(concept_connections[x][2])
+            nodelistA.append(concept_connections[x][2])  # Sets node to concept group
+
+        a = G.nodes().index(concept_connections[x][0])  # Stores index of node
+        b = G.nodes().index(concept_connections[x][1])
+
+        if str(a) + str(b) in node_duplication:  # Checks if the node is already placed
+            for o in range(0, node_connection_counter):
+                if node_connections[o][0] == a and node_connections[o][1] == b:
+                    node_connections[o][2] = node_connections[o][
+                                                 2] + 1  # Adds one to the weight counter of node connections
+                    o = node_connection_counter
+        else:
+            node_connections.append([])  # Adds the node connections to a list
+            for c in range(0, 3):
+                node_connections[node_connection_counter].append("")
+            node_connections[node_connection_counter][0] = a
+            node_connections[node_connection_counter][1] = b
+            node_connections[node_connection_counter][2] = 1
+            node_connection_counter = node_connection_counter + 1
+            node_duplication.add(str(a) + str(b))
+
+        a = G.nodes().index(concept_connections[x][1])  # Same as above
+        b = G.nodes().index(concept_connections[x][2])
+
+        if str(a) + str(b) in node_duplication:
+            for o in range(0, node_connection_counter):
+                if node_connections[o][0] == a and node_connections[o][1] == b:
+                    node_connections[o][2] = node_connections[o][2] + 1
+                    o = node_connection_counter
+        else:
+            node_connections.append([])
+            for c in range(0, 3):
+                node_connections[node_connection_counter].append("")
+            node_connections[node_connection_counter][0] = a
+            node_connections[node_connection_counter][1] = b
+            node_connections[node_connection_counter][2] = 1
+            node_connection_counter = node_connection_counter + 1
+            node_duplication.add(str(a) + str(b))
+
+        G.add_edge(concept_connections[x][0], concept_connections[x][1])
+        G.add_edge(concept_connections[x][1], concept_connections[x][2])
+
+    e = [(u, v) for (u, v, d) in G.edges(data=True)]
+
+    pos = nx.spring_layout(G, scale=50)
+
+    plt.figure(num=None, figsize=(40, 22.5), dpi=120)
+
+    nodes = nx.draw_networkx_nodes(G, pos, nodelist=nodelistA, node_size=200, node_color='cyan')
+
+    nodes.set_edgecolor('white')
+
+    nodes = nx.draw_networkx_nodes(G, pos, nodelist=nodelistB, node_size=200, node_color='white')
+
+    nodes.set_edgecolor('white')
+
+    nx.draw_networkx_edges(G, pos, edgelist=e, width=2, edge_color="gray", alpha=0.7)
+
+    nx.draw_networkx_labels(G, pos, font_size=12, font_color='black')
+
+    plt.axis('off')
+    # plt.show()
+
+    for x in G.nodes():
+        node_list.append(x)
+
+    save_format = str(save_format)
+
+    save_name = str(save_name)
+
+    if save_format == "PDF":
+        new_name = save_name + ".pdf"
+        plt.savefig(new_name)  # Creates pdf file
+
+    elif save_format == "TXT":
+        new_name = save_name + ".txt"
+        file = open(new_name, "w")  # Creates txt file
+        for x in range(0, concept_connection_counter):  # Adds concepts to file
+            file.write(concept_connections[x][0] + chr(9) + concept_connections[x][1] + chr(9) + concept_connections[x][
+                2] + "\n")
+        file.close()  # Saves and closes the file
+
     return dict(form_text=form_text, concept_connections=concept_connections, sensitivity=sensitivity)
 
 

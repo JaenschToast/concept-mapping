@@ -493,15 +493,21 @@ for x in good_prop:
     except ValueError:
         pass
 
-similarity_percentage = (similar_prop)/(number_of_master_prop)*100
+similar_prop = float(similar_prop)
+
+number_of_master_prop = float(number_of_master_prop)
+
+similarity_percentage = 0
+
+similarity_percentage = float(similarity_percentage)
+
+similarity_percentage = ((similar_prop)/(number_of_master_prop))*100
 
 num_useless = concept_connection_counter-similar_prop
 
-print("The student had " + str(similar_prop) + " propositions in common with the gold standard of " + str(number_of_master_prop) + " propositions.")
+print("The student had " + str(int(similar_prop)) + " propositions in common with the gold standard of " + str(int(number_of_master_prop)) + " propositions.")
 
-print(str(similar_prop) + "/" + str(number_of_master_prop) + " = " + str(similarity_percentage) + "%")
-
-print("The student had " + str(num_useless) + " useless propositions.")
+print(str(int(similar_prop)) + "/" + str(int(number_of_master_prop)) + " = " + str(similarity_percentage) + "%")
 
 print("The useless propositions were: ")
 
