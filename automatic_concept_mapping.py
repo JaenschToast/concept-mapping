@@ -493,6 +493,44 @@ for x in good_prop:
     except ValueError:
         pass
 
+all_syn = set()
+
+for f in concept_comparison:
+    for g in gold_standard:
+        try:
+            compare_syn = nltk.word_tokenize(f)
+            concept_syn_1 = wn.synsets(compare_syn[0])
+            concept_syn_2 = wn.synsets(compare_syn[1])
+            concept_syn_3 = wn.synsets(compare_syn[2])
+            concept_syn_1 = concept_syn_1[0]
+            concept_syn_2 = concept_syn_2[0]
+            concept_syn_3 = concept_syn_3[0]
+            compare_syn_b = nltk.word_tokenize(g)
+            concept_syn_1_b = wn.synsets(compare_syn_b[0])
+            concept_syn_2_b = wn.synsets(compare_syn_b[1])
+            concept_syn_3_b = wn.synsets(compare_syn_b[2])
+            concept_syn_1_b = concept_syn_1_b[0]
+            concept_syn_2_b = concept_syn_2_b[0]
+            concept_syn_3_b = concept_syn_3_b[0]
+
+            sim_1 = concept_syn_1.path_similarity(concept_syn_1_b)
+
+            sim_2 = concept_syn_2.path_similarity(concept_syn_2_b)
+
+            sim_3 = concept_syn_3.path_similarity(concept_syn_3_b)
+
+            if (.4<sim_1<1) and (.4<sim_2<1) and (.4<sim_3<1):
+                good_prop.append(f)
+                concept_comparison.remove(f)
+                similar_prop = similar_prop + 1
+                print(f)
+                print("HERE")
+
+        except IndexError:
+            pass
+        except UnicodeDecodeError:
+            pass
+
 similar_prop = float(similar_prop)
 
 number_of_master_prop = float(number_of_master_prop)
@@ -503,13 +541,17 @@ similarity_percentage = float(similarity_percentage)
 
 similarity_percentage = ((similar_prop)/(number_of_master_prop))*100
 
+if similarity_percentage > 100:
+    similarity_percentage = 100
+    similar_prop = number_of_master_prop
+
 num_useless = concept_connection_counter-similar_prop
 
 print("The student had " + str(int(similar_prop)) + " propositions in common with the gold standard of " + str(int(number_of_master_prop)) + " propositions.")
 
 print(str(int(similar_prop)) + "/" + str(int(number_of_master_prop)) + " = " + str(similarity_percentage) + "%")
 
-print("The useless propositions were: ")
+print("The unnecessary propositions were: ")
 
 for x in concept_comparison:
     print(x)
