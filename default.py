@@ -1,4 +1,5 @@
 import nltk
+import os
 from nltk.corpus import wordnet as wn
 import matplotlib.pyplot as plt
 import networkx as nx
@@ -402,15 +403,19 @@ def form_text():
 
     if save_pdf == "on":
         new_name = save_name + ".pdf"
-        plt.savefig(new_name)  # Creates pdf file
+        plt.savefig('/home/dre/web2py/applications/concept_map/uploads/' + new_name)  # Creates pdf file
+        pathfilename = os.path.join(request.folder,'uploads/',new_name)
+        return response.stream(open(pathfilename,'rb'),chunk_size=10**6)
 
     if save_txt == "on":
         new_name = save_name + ".txt"
-        file = open(new_name, "w")  # Creates txt file
+        file = open('/home/dre/web2py/applications/concept_map/uploads/' + new_name, "w")  # Creates txt file
         for x in range(0, concept_connection_counter):  # Adds concepts to file
             file.write(concept_connections[x][0] + chr(9) + concept_connections[x][1] + chr(9) + concept_connections[x][
                 2] + "\n")
         file.close()  # Saves and closes the file
+        pathfilename = os.path.join(request.folder, 'uploads/', new_name)
+        return response.stream(open(pathfilename, 'rb'), chunk_size=10 ** 6)
 
     gold_out_1 = ""
 
