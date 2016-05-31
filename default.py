@@ -12,19 +12,17 @@ def form_text():
     db.define_table('concept_info',
     Field('text_in', 'text'),
     Field('how_many_concepts', requires=IS_IN_SET([2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30])),
-    Field('verb_length', requires=IS_IN_SET([1,2,3,4,5,6,7,8,9,10])),
+    Field('connecting_length_checked', requires=IS_IN_SET([1,2,3,4,5,6,7,8,9,10])),
     Field('concepts_to_add', 'text'),
     Field('concepts_to_remove', 'text'),
-    Field('PDF', 'boolean'),
-    Field('TXT', 'boolean'),
+    Field('save_format', requires=IS_IN_SET(['PDF', 'TXT', 'NONE'])),
     Field('name_to_save_as', requires=IS_NOT_EMPTY()),
     Field('enter_gold_standard', 'text'))
     form_text = SQLFORM(db.concept_info)
     save_name = request.vars.name_to_save_as
-    save_pdf = request.vars.PDF
-    save_txt = request.vars.TXT
+    save_type = request.vars.save_format
     texting = request.vars.text_in
-    verb_num = request.vars.verb_length
+    verb_num = request.vars.connecting_length_checked
     concept_add = request.vars.concepts_to_add
     concept_delete = request.vars.concepts_to_remove
     stored_concepts = request.vars.how_many_concepts
@@ -392,22 +390,20 @@ def form_text():
     for x in G.nodes():
         node_list.append(x)
     try:
-        save_pdf = str(save_pdf)
+        save_format = str(save_format)
 
-        save_txt = str(save_txt)
-
-    except TypeError:
+    except UnboundLocalError:
         pass
 
     save_name = str(save_name)
 
-    if save_pdf == "on":
+    if save_type == "PDF":
         new_name = save_name + ".pdf"
         plt.savefig('/home/dre/web2py/applications/concept_map/uploads/' + new_name)  # Creates pdf file
         pathfilename = os.path.join(request.folder,'uploads/',new_name)
         return response.stream(open(pathfilename,'rb'),chunk_size=10**6)
 
-    if save_txt == "on":
+    if save_type == "TXT":
         new_name = save_name + ".txt"
         file = open('/home/dre/web2py/applications/concept_map/uploads/' + new_name, "w")  # Creates txt file
         for x in range(0, concept_connection_counter):  # Adds concepts to file
@@ -542,37 +538,50 @@ def index():
 
 def form():
     db.define_table('concept_info',
-    Field('doc_txt', 'upload'),
+    Field('choose_a_document', 'upload'),
+    Field('choose_a_gold_standard', 'upload'),
     Field('how_many_concepts', requires=IS_IN_SET([2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30])),
-    Field('verb_length', requires=IS_IN_SET([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])),
+    Field('connecting_length_checked', requires=IS_IN_SET([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])),
     Field('concepts_to_add', 'text'),
     Field('concepts_to_remove', 'text'),
-    Field('PDF', 'boolean'),
-    Field('TXT', 'boolean'),
-    Field('name_to_save_as', requires=IS_NOT_EMPTY()),
-    Field('gold_txt', 'upload'))
-    form = SQLFORM(db.concept_info)
+    Field('save_format', requires=IS_IN_SET(['PDF','TXT','NONE'])),
+    Field('name_to_save_as'))
+    up_form = SQLFORM(db.concept_info).process()
     save_name = request.vars.name_to_save_as
-    save_pdf = request.vars.PDF
-    save_txt = request.vars.TXT
-    verb_num = request.vars.verb_length
+    save_type = request.vars.save_format
+    verb_num = request.vars.connecting_length_checked
     concept_add = request.vars.concepts_to_add
     concept_delete = request.vars.concepts_to_remove
     stored_concepts = request.vars.how_many_concepts
 
-    g_standard = "google does privacy"
+    #db.define_table('upload_doc',
+    #Field('choose_a_document', 'upload'),
+    #Field('choose_a_gold_standard', 'upload'))
+    #up_form = SQLFORM(db.concept_info).process()
+    text_doc = request.vars.choose_a_document
+    gold_doc = request.vars.choose_a_gold_standard
+    text_name = up_form.vars.choose_a_document
+    gold_name = up_form.vars.choose_a_gold_standard
 
-    texting = "google does privacy"
-
-    if g_standard:
+    try:
+        imported_document = open('/home/dre/web2py/applications/concept_map/uploads/' + str(text_name), 'r')
+        texting = imported_document.read()
+        imported_document2 = open('/home/dre/web2py/applications/concept_map/uploads/' + str(gold_name), 'r')
+        g_standard = imported_document2.read()
+    except IOError:
         pass
+    '''if gold_doc:
+        imported_document2 = open('/home/dre/web2py/applications/concept_map/uploads/' + str(gold_name), 'r')
+        g_standard = imported_document2.read()
     else:
-        g_standard = "-"
+        gold_doc = "-"
 
-    if texting:
-        pass
+    if text_doc:
+        imported_document = open('/home/dre/web2py/applications/concept_map/uploads/' + str(text_name), 'r')
+        texting = imported_document.read()
     else:
-        texting = ""
+        text_doc = ""
+    '''
 
     if verb_num:
         pass
@@ -661,9 +670,12 @@ def form():
     node_list = []  # This list will hold all of the nodes with an index
 
     try:
-        tokens = nltk.word_tokenize(str(texting))  # Creates tokens
-    except UnicodeDecodeError:
-        error = "ERROR #357: PLEASE ENTER TEXT ONLY"
+        try:
+            tokens = nltk.word_tokenize(str(texting))  # Creates tokens
+        except UnicodeDecodeError:
+            error = "ERROR #357: PLEASE ENTER TEXT ONLY"
+    except UnboundLocalError:
+        pass
 
     try:
         number_of_tokens = len(tokens)  # Counts the number of tokens
@@ -926,26 +938,28 @@ def form():
     for x in G.nodes():
         node_list.append(x)
     try:
-        save_pdf = str(save_pdf)
+        save_format = str(save_format)
 
-        save_txt = str(save_txt)
-
-    except TypeError:
+    except UnboundLocalError:
         pass
 
     save_name = str(save_name)
 
-    if save_pdf == "on":
+    if save_type == "PDF":
         new_name = save_name + ".pdf"
-        plt.savefig(new_name)  # Creates pdf file
+        plt.savefig('/home/dre/web2py/applications/concept_map/uploads/' + new_name)  # Creates pdf file
+        pathfilename = os.path.join(request.folder, 'uploads/', new_name)
+        return response.stream(open(pathfilename, 'rb'), chunk_size=10 ** 6)
 
-    if save_txt == "on":
+    if save_type == "TXT":
         new_name = save_name + ".txt"
-        file = open(new_name, "w")  # Creates txt file
+        file = open('/home/dre/web2py/applications/concept_map/uploads/' + new_name, "w")  # Creates txt file
         for x in range(0, concept_connection_counter):  # Adds concepts to file
             file.write(concept_connections[x][0] + chr(9) + concept_connections[x][1] + chr(9) + concept_connections[x][
                 2] + "\n")
         file.close()  # Saves and closes the file
+        pathfilename = os.path.join(request.folder, 'uploads/', new_name)
+        return response.stream(open(pathfilename, 'rb'), chunk_size=10 ** 6)
 
     gold_out_1_t = ""
 
@@ -955,116 +969,119 @@ def form():
 
     gold_out_4_t = ""
 
-    if g_standard != "-":
+    try:
+        if g_standard != "-":
 
-        tokens = nltk.word_tokenize(g_standard)  # Creates tokens
+            tokens = nltk.word_tokenize(g_standard)  # Creates tokens
 
-        number_of_tokens = len(tokens)  # Counts the number of tokens
+            number_of_tokens = len(tokens)  # Counts the number of tokens
 
-        gold_standard = []
+            gold_standard = []
 
-        for x in range(0, number_of_tokens):
-            if (x % 3 == 0 or x == 0) and (x < number_of_tokens - 2):
-                gold_standard.append(tokens[x] + " " + tokens[x + 1] + " " + tokens[x + 2])
-                gold_standard.append(tokens[x + 2] + " " + tokens[x + 1] + " " + tokens[x])
+            for x in range(0, number_of_tokens):
+                if (x % 3 == 0 or x == 0) and (x < number_of_tokens - 2):
+                    gold_standard.append(tokens[x] + " " + tokens[x + 1] + " " + tokens[x + 2])
+                    gold_standard.append(tokens[x + 2] + " " + tokens[x + 1] + " " + tokens[x])
 
-        concept_comparison = []
+            concept_comparison = []
 
-        for x in range(0, concept_connection_counter):
-            if x < concept_connection_counter:
-                concept_comparison.append(str(concept_connections[x][0]) + " " + str(concept_connections[x][1]) + " " + str(
-                    concept_connections[x][2]))
+            for x in range(0, concept_connection_counter):
+                if x < concept_connection_counter:
+                    concept_comparison.append(str(concept_connections[x][0]) + " " + str(concept_connections[x][1]) + " " + str(
+                        concept_connections[x][2]))
 
-        concept_comparison = set(concept_comparison)
+            concept_comparison = set(concept_comparison)
 
-        concept_comparison = list(concept_comparison)
+            concept_comparison = list(concept_comparison)
 
-        number_of_master_prop = number_of_tokens / 3
+            number_of_master_prop = number_of_tokens / 3
 
-        similar_prop = 0
+            similar_prop = 0
 
-        good_prop = []
+            good_prop = []
 
-        for x in gold_standard:
-            for y in concept_comparison:
-                if x == y:
-                    similar_prop = similar_prop + 1
-                    good_prop.append(y)
-
-        for x in good_prop:
-            try:
-                concept_comparison.remove(x)
-            except ValueError:
-                pass
-
-        all_syn = set()
-
-        for f in concept_comparison:
-            for g in gold_standard:
-                try:
-                    compare_syn = nltk.word_tokenize(f)
-                    concept_syn_1 = wn.synsets(compare_syn[0])
-                    concept_syn_2 = wn.synsets(compare_syn[1])
-                    concept_syn_3 = wn.synsets(compare_syn[2])
-                    concept_syn_1 = concept_syn_1[0]
-                    concept_syn_2 = concept_syn_2[0]
-                    concept_syn_3 = concept_syn_3[0]
-                    compare_syn_b = nltk.word_tokenize(g)
-                    concept_syn_1_b = wn.synsets(compare_syn_b[0])
-                    concept_syn_2_b = wn.synsets(compare_syn_b[1])
-                    concept_syn_3_b = wn.synsets(compare_syn_b[2])
-                    concept_syn_1_b = concept_syn_1_b[0]
-                    concept_syn_2_b = concept_syn_2_b[0]
-                    concept_syn_3_b = concept_syn_3_b[0]
-
-                    sim_1 = concept_syn_1.path_similarity(concept_syn_1_b)
-
-                    sim_2 = concept_syn_2.path_similarity(concept_syn_2_b)
-
-                    sim_3 = concept_syn_3.path_similarity(concept_syn_3_b)
-
-                    if (.4 < sim_1 < 1) and (.4 < sim_2 < 1) and (.4 < sim_3 < 1):
-                        good_prop.append(f)
-                        concept_comparison.remove(f)
+            for x in gold_standard:
+                for y in concept_comparison:
+                    if x == y:
                         similar_prop = similar_prop + 1
-                        print(f)
-                        print("HERE")
+                        good_prop.append(y)
 
-                except IndexError:
+            for x in good_prop:
+                try:
+                    concept_comparison.remove(x)
+                except ValueError:
                     pass
-                except UnicodeDecodeError:
-                    pass
 
-        similar_prop = float(similar_prop)
+            all_syn = set()
 
-        number_of_master_prop = float(number_of_master_prop)
+            for f in concept_comparison:
+                for g in gold_standard:
+                    try:
+                        compare_syn = nltk.word_tokenize(f)
+                        concept_syn_1 = wn.synsets(compare_syn[0])
+                        concept_syn_2 = wn.synsets(compare_syn[1])
+                        concept_syn_3 = wn.synsets(compare_syn[2])
+                        concept_syn_1 = concept_syn_1[0]
+                        concept_syn_2 = concept_syn_2[0]
+                        concept_syn_3 = concept_syn_3[0]
+                        compare_syn_b = nltk.word_tokenize(g)
+                        concept_syn_1_b = wn.synsets(compare_syn_b[0])
+                        concept_syn_2_b = wn.synsets(compare_syn_b[1])
+                        concept_syn_3_b = wn.synsets(compare_syn_b[2])
+                        concept_syn_1_b = concept_syn_1_b[0]
+                        concept_syn_2_b = concept_syn_2_b[0]
+                        concept_syn_3_b = concept_syn_3_b[0]
 
-        similarity_percentage = 0
+                        sim_1 = concept_syn_1.path_similarity(concept_syn_1_b)
 
-        similarity_percentage = float(similarity_percentage)
+                        sim_2 = concept_syn_2.path_similarity(concept_syn_2_b)
 
-        similarity_percentage = ((similar_prop) / (number_of_master_prop)) * 100
+                        sim_3 = concept_syn_3.path_similarity(concept_syn_3_b)
 
-        if similarity_percentage>100:
-            similarity_percentage = 100
-            similar_prop = number_of_master_prop
+                        if (.4 < sim_1 < 1) and (.4 < sim_2 < 1) and (.4 < sim_3 < 1):
+                            good_prop.append(f)
+                            concept_comparison.remove(f)
+                            similar_prop = similar_prop + 1
+                            print(f)
+                            print("HERE")
 
-        num_useless = concept_connection_counter - similar_prop
+                    except IndexError:
+                        pass
+                    except UnicodeDecodeError:
+                        pass
 
-        if gold_standard:
-            gold_out_1_t = "The student had " + str(int(similar_prop)) + " propositions in common with the gold standard of " + str(
-                int(number_of_master_prop)) + " propositions."
+            similar_prop = float(similar_prop)
 
-            gold_out_2_t = str(int(similar_prop)) + "/" + str(int(number_of_master_prop)) + " = " + str(similarity_percentage) + "%"
+            number_of_master_prop = float(number_of_master_prop)
 
-            gold_out_3_t = "The unnecessary propositions were: "
+            similarity_percentage = 0
 
-            gold_out_4_t = concept_comparison
+            similarity_percentage = float(similarity_percentage)
 
-        else:
-            pass
+            similarity_percentage = ((similar_prop) / (number_of_master_prop)) * 100
 
-    return dict(form=form, error=error, gold_out_1_t = gold_out_1_t, gold_out_2_t = gold_out_2_t, gold_out_3_t = gold_out_3_t, gold_out_4_t = gold_out_4_t)
+            if similarity_percentage>100:
+                similarity_percentage = 100
+                similar_prop = number_of_master_prop
+
+            num_useless = concept_connection_counter - similar_prop
+
+            if gold_standard:
+                gold_out_1_t = "The student had " + str(int(similar_prop)) + " propositions in common with the gold standard of " + str(
+                    int(number_of_master_prop)) + " propositions."
+
+                gold_out_2_t = str(int(similar_prop)) + "/" + str(int(number_of_master_prop)) + " = " + str(similarity_percentage) + "%"
+
+                gold_out_3_t = "The unnecessary propositions were: "
+
+                gold_out_4_t = concept_comparison
+
+            else:
+                pass
+    except UnboundLocalError:
+        pass
+
+    return dict(form=form, error=error, up_form = up_form, text_doc = text_doc, gold_doc = gold_doc, text_name = text_name, gold_name = gold_name, gold_out_1_t = gold_out_1_t, gold_out_2_t = gold_out_2_t, gold_out_3_t = gold_out_3_t, gold_out_4_t = gold_out_4_t)
 
 
 def user():
